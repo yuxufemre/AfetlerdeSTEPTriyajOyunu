@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>START Triyaj Uygulamaları Oyunu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            color: rgb(255, 255, 255);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+            background-color: #000;
+        }
+
+        video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 120%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        h1 {
+            font-size: 4em;
+            font-weight: bold;
+            margin-bottom: 50px;
+            z-index: 1;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+            z-index: 1;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        button {
+            background-color: #fff;
+            color: black;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.5em;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s;
+            z-index: 1;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        button:hover {
+            background-color: #507fe6;
+            color: white;
+        }
+
+        .rules-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgb(255, 255, 255);
+            color: #507fe6;
+            text-align: center;
+            padding: 50px;
+            box-sizing: border-box;
+            z-index: 2;
+            overflow-y: auto;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 2em;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 2;
+        }
+
+        .video-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 3;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .video-container video {
+            width: 80%;
+            height: auto;
+        }
+
+        .close-video-button {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 2em;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            z-index: 4;
+        }
+    </style>
+</head>
+<body>
+    <video autoplay muted loop id="video1">
+        <source src="video1.mp4" type="video/mp4">
+        Tarayıcınız video etiketini desteklemiyor.
+    </video>
+    <h1>START Triyaj Uygulamaları <br> Oyunu</h1>
+    <div class="button-container">
+        <button onclick="playSound(); stopBackgroundSound(); startGame()">Oyuna Başla</button>
+        <button onclick="playSound(); showRules()">Kurallar</button>
+        <button onclick="playSound(); showVideo()">START Triyaj Bilgilendirme Videosu</button>
+    </div>
+
+    <div class="rules-container" id="rulesPage">
+        <span class="close-button" onclick="closeRules()">&times;</span>
+        <h1 style="font-size: 5em;">Kurallar</h1>
+        
+            <li style="font-size: 1.2em;">Bu oyun meydana gelen 7.5 büyüklüğündeki bir deprem sonrası yıkımların olduğu bir enkaz bölgesidir. Bölgede çok sayıda yaralılar bulunmaktadır.</li>
+            <li style="font-size: 1.2em;">Sizden beklenen <strong> START Triyajı Algoritması</strong> kullanarak yaralıları uygun şekilde değerlendirmeniz ve uygun kodları vermenizdir. <br> START Triyaj aksiyonları olay yeri güvenliği alındığı varsayılarak yapılmalıdır.</li>
+            <li style="font-size: 1.2em;">Tüm değerlendirmeleri yapmanız ve uygun kodları vermeniz için <strong>6 dakikanız</strong> bulunmaktadır.</li>
+            <li style="font-size: 1.2em;">Hastaya yanlış müdehale edilirse süreniz <strong> 10 saniye</strong> kısalacaktır.</li>
+            <p style="font-size: 1.2em;"> <strong>Not: Oyuna başlamadan önce START Triyajın detaylı olarak anlatıldığı videonun izlenilmesi tavsiye edilmektedir. <br> Bu videoya Oyun Giriş Ekranındaki, <strong>"START Triyaj Bilgilendirme"</strong> butonundan ulaşabilirsiniz. </strong></p> 
+
+        <h1><strong> Buton Açıklamaları</strong> </h1>
+
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; justify-items: center;">
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; border-radius: 10px; overflow: hidden;">
+                <img src="option1.webp" alt="Fotoğraf 1" style="max-width: 100%; height: 200px; width: 200px;">
+                <h3 style="margin-top: 10px;"> Bilinç Kontrolü</h3>
+            </div>
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; border-radius: 10px; overflow: hidden;">
+                <img src="option2.webp" alt="Fotoğraf 1" style="max-width: 100%; height: 170px; width: 200px;">
+                <h3 style="margin-top: 20px;"> Dolaşım Kontrolü <br>/Kapiller Geri Dolum Kontrolü</h3>
+            </div>
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; border-radius: 10px; overflow: hidden;">
+                <img src="option3.webp" alt="Fotoğraf 1" style="max-width: 100%; height: 200px; width: 200px;">
+                <h3 style="margin-top: 10px;"> Solunum Kontrolü</h3>
+            </div>
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; border-radius: 10px; overflow: hidden;">
+                <img src="option11.webp" alt="Fotoğraf 1" style="max-width: 100%; height: 200px; width: 200px;">
+                <h3 style="margin-top: 10px;"> Baş-Boyun Posiyonu</h3>
+            </div>
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; border-radius: 10px; overflow: hidden;">
+                <img src="option10.webp" alt="Fotoğraf 1" style="max-width: 100%; height: 200px; width: 200px;">
+                <h3 style="margin-top: 10px;"> Kanama Kontrolü</h3>
+            </div>
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; border-radius: 10px; overflow: hidden;">
+                <img src="option4.webp" alt="Fotoğraf 1" style="max-width: 100%; height: 200px; width: 200px;">
+                <h3 style="margin-top: 10px;"> Yeşil Kod</h3>
+            </div>
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; border-radius: 10px; overflow: hidden;">
+                <img src="option5.webp" alt="Fotoğraf 1" style="max-width: 100%; height: 200px; width: 200px;">
+                <h3 style="margin-top: 10px;"> Siyah Kod</h3>
+            </div>
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; border-radius: 10px; overflow: hidden;">
+                <img src="option6.webp" alt="Fotoğraf 1" style="max-width: 100%; height: 200px; width: 200px;">
+                <h3 style="margin-top: 10px;"> Kırmızı Kod</h3>
+            </div>
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; border-radius: 10px; overflow: hidden;">
+                <img src="option7.webp" alt="Fotoğraf 1" style="max-width: 100%; height: 200px; width: 200px;">
+                <h3 style="margin-top: 10px;"> Sarı Kod</h3>
+            </div>
+        </div>
+    </div>
+        
+
+    <div class="video-container" id="videoPage">
+        <span class="close-video-button" onclick="closeVideo()">&times;</span>
+        <video id="infoVideo" controls>
+            <source src="video2.mp4" type="video/mp4">
+            Tarayıcınız video etiketini desteklemiyor.
+        </video>
+    </div>
+
+
+    <audio id="backgroundSound" src="ses2.mp3" preload="auto" loop></audio>
+    <audio id="soundEffect" src="ses1.mp3" preload="auto"></audio>
+
+    <script>
+        window.onload = function() {
+            playBackgroundSound();
+        };
+
+        function startGame() {
+            localStorage.setItem('playGameSound', 'true'); 
+            localStorage.setItem('timeLeft', 6 * 60);
+            localStorage.setItem('timerStarted', 'true');
+            stopBackgroundSound();
+            window.location.href = "oyun.html"; 
+        }
+
+        function showRules() {
+            document.getElementById("rulesPage").style.display = "block";
+            stopBackgroundSound();
+        }
+
+        function closeRules() {
+            document.getElementById("rulesPage").style.display = "none";
+            playBackgroundSound();
+        }
+
+        function showVideo() {
+            stopBackgroundSound(); 
+            let videoPage = document.getElementById("videoPage");
+            let video = document.getElementById("infoVideo");
+
+            video.currentTime = 0; 
+            videoPage.style.display = "flex"; 
+            
+            let playPromise = video.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(error => console.error("Video otomatik oynatılamadı, manuel başlatın."));
+            }
+        }
+
+        function closeVideo() {
+            let videoPage = document.getElementById("videoPage");
+            let video = document.getElementById("infoVideo");
+
+            video.pause();
+            video.currentTime = 0;
+            videoPage.style.display = "none";
+            playBackgroundSound();
+        }
+
+        function playSound() {
+            const sound = document.getElementById('soundEffect');
+            sound.currentTime = 0;
+            sound.play().catch(error => console.error("Ses çalma hatası:", error));
+        }
+
+        function playBackgroundSound() {
+            const backgroundSound = document.getElementById('backgroundSound');
+            if (backgroundSound.paused) {
+                backgroundSound.play().catch(error => console.error("Arka plan sesi çalınamadı:", error));
+            }
+        }
+
+        function stopBackgroundSound() {
+            const backgroundSound = document.getElementById('backgroundSound');
+            backgroundSound.pause();
+            backgroundSound.currentTime = 0;
+        }
+        function startGame() {
+        // Oyun sesi başlat
+        const gameAudio = document.getElementById('soundEffect');
+        gameAudio.currentTime = 0;
+        gameAudio.play().catch(error => console.error("Oyun sesi çalınamadı:", error));
+
+        // Arka plan sesini durdur
+        stopBackgroundSound();
+
+        // 2 saniye gecikmeli yönlendirme
+        setTimeout(() => {
+            localStorage.setItem('playGameSound', 'true');
+            localStorage.setItem('timeLeft', 6 * 60);
+            localStorage.setItem('timerStarted', 'true');
+            window.location.href = "oyun.html";
+        }, 1000);}
+    </script>
+</body>
+</html>

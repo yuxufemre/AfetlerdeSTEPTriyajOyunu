@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Sheets Veri Kaydetme</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        input {
+            margin: 10px 0;
+            padding: 10px;
+            width: 250px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Google Sheets Veri Kaydetme</h1>
+    <input type="text" id="firstName" placeholder="Adınızı girin" required>
+    <input type="text" id="lastName" placeholder="Soyadınızı girin" required>
+    <button onclick="saveToGoogleSheet()">Sonucunu Gönder</button>
+
+    <script>
+        async function saveToGoogleSheet() {
+            const url = "https://script.google.com/macros/s/AKfycby5RSizdKrEX0wD5kD7qavrin6KFrfyuqIUOuj5gOIHWfnKmILTZEhYYEWbSfKM3kwR/exec"; // Buraya API URL’nizi ekleyin
+
+            const firstName = document.getElementById("firstName").value.trim();
+            const lastName = document.getElementById("lastName").value.trim();
+
+            if (firstName === "" || lastName === "") {
+                alert("Lütfen adınızı ve soyadınızı girin.");
+                return;
+            }
+
+            const data = {
+                name: firstName,
+                surname: lastName
+            };
+
+            const options = {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            };
+
+            try {
+                const response = await fetch(url, options);
+                const result = await response.text();
+                console.log("Google Sheets'e kaydedildi:", result);
+                alert("Veriler başarıyla kaydedildi!");
+            } catch (error) {
+                console.error("Google Sheets'e yazma hatası:", error);
+                alert("Veri kaydedilemedi! Hata: " + error.message);
+            }
+        }
+    </script>
+</body>
+</html>

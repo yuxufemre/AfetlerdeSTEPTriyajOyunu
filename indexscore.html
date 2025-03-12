@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skorboard</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 2.5em;
+            color: #333;
+        }
+
+        .scoreboard {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+
+        .score {
+            font-size: 1.5em;
+            margin: 10px 0;
+        }
+
+        .button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Skorboard</h1>
+    <div class="scoreboard">
+        <div class="score">Doğru: <span id="correctCount">0</span></div>
+        <div class="score">Yanlış: <span id="wrongCount">0</span></div>
+        <div class="score">Puan: <span id="score">0</span></div>
+        <div class="score">Kalan Süre: <span id="remainingTime">0</span> </div>
+    </div>
+    <button class="button" onclick="window.location.href='indexsonuc.html'">Devam</button>
+
+    <script>
+        // Skorları yerel depolamadan al
+        const correctCount = parseInt(localStorage.getItem('correctCount')) || 0;
+        const wrongCount = parseInt(localStorage.getItem('wrongCount')) || 0;
+
+        // Kalan süreyi yerel depolamadan al
+        const remainingTimeInSeconds = parseInt(localStorage.getItem('timeLeft')) || 0;
+
+        // Dakika ve saniye formatına çevir
+        const minutes = Math.floor(remainingTimeInSeconds / 60);
+        const seconds = remainingTimeInSeconds % 60;
+
+        // Skorları sayfada göster
+        document.getElementById('correctCount').textContent = correctCount;
+        document.getElementById('wrongCount').textContent = wrongCount;
+
+        // Puan hesaplama
+        const score = (correctCount * 5) - (wrongCount * 2);
+        document.getElementById('score').textContent = score;
+
+        // Kalan süreyi dakika formatında sayfada göster
+        document.getElementById('remainingTime').textContent = `${minutes} dakika ${seconds} saniye`;
+
+        // Sayfa kapatıldığında skorları sıfırla
+        window.onbeforeunload = function() {
+            localStorage.removeItem('correctCount');
+            localStorage.removeItem('wrongCount');
+            localStorage.removeItem('score');
+            localStorage.removeItem('timeLeft');
+        };
+        
+
+        function goToHomePage() {
+            window.location.href = "index.html";
+        }
+    </script>
+</body>
+</html>
