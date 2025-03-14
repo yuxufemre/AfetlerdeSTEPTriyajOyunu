@@ -39,7 +39,7 @@
         }
         img {
             width: 100%;
-            max-width: 250px;
+            max-width: 350px;
             height: auto;
             border-radius: 10px;
             margin-bottom: 10px;
@@ -100,14 +100,10 @@
     <h1>START Triyaj Uygulaması İçin Hasta Seçiniz</h1>
     <div class="photo-container">
         <div class="photo-item">
-            <img src="photo1.webp" alt="Fotoğraf 1">
-            <button class="select-button" onclick="playSound(); redirectToIndex(1)">Seç</button>
+            <img src="photo8.webp" alt="Fotoğraf 8">
+            <button class="select-button" onclick="playSound(); redirectToIndex(22)">Seç</button>
         </div>
-        <div class="photo-item">
-            <img src="photo2.webp" alt="Fotoğraf 2">
-            <button class="select-button" onclick="playSound(); redirectToIndex(5)">Seç</button>
-        </div>
-        <div class="photo-item">
+       <div class="photo-item">
             <img src="photo3.webp" alt="Fotoğraf 3">
             <button class="select-button" onclick="playSound(); redirectToIndex(9)">Seç</button>
         </div>
@@ -115,6 +111,7 @@
             <img src="photo4.webp" alt="Fotoğraf 4">
             <button class="select-button" onclick="playSound(); redirectToIndex(13)">Seç</button>
         </div>
+       
         <div class="photo-item">
             <img src="photo5.webp" alt="Fotoğraf 5">
             <button class="select-button" onclick="playSound(); redirectToIndex(17)">Seç</button>
@@ -124,12 +121,20 @@
             <button class="select-button" onclick="playSound(); redirectToIndex(18)">Seç</button>
         </div>
         <div class="photo-item">
+            <img src="photo2.webp" alt="Fotoğraf 2">
+            <button class="select-button" onclick="playSound(); redirectToIndex(5)">Seç</button>
+        </div>
+        <div class="photo-item">
             <img src="photo7.webp" alt="Fotoğraf 7">
             <button class="select-button" onclick="playSound(); redirectToIndex(19)">Seç</button>
         </div>
         <div class="photo-item">
             <img src="photo8.webp" alt="Fotoğraf 8">
             <button class="select-button" onclick="playSound(); redirectToIndex(22)">Seç</button>
+        </div>
+        <div class="photo-item">
+            <img src="photo1.webp" alt="Fotoğraf 1">
+            <button class="select-button" onclick="playSound(); redirectToIndex(1)">Seç</button>
         </div>
     </div>
 
@@ -172,7 +177,7 @@
             if (timeLeft <= 0) {
                 clearInterval(timerId);
                 alert('Süre doldu!');
-                goToHomePage();
+                window.location.href = `indexscore.html`;
             }
 
             timeLeft--;
